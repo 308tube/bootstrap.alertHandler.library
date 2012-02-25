@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+	<meta charset="utf-8" />
+	<title>bootstrap.alertHandler.js</title>
+	
+	<!-- Library files 
+		http://twitter.github.com/bootstrap/
+		http://jquery.com/
+	-->
+	<link href="resources/css/bootstrap.css" rel="stylesheet">
+	<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="resources/css/prettify.css" rel="stylesheet">
+	<script src="resources/js/jquery-1.7.1.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/prettify.js"></script>
+	
+	<!-- Developer files -->
+	<link href="css/main.css" rel="stylesheet">
+	
+</head>
+<body onload="prettyPrint()">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+	
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">Alert Handler Library</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+	
+              <li><a href="index.html">Home</a></li>
+              <li class="active"><a href="msgCodeLib.html">Msg Code Library</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+	
+    </div>
+
+    <div class="container">
+		
+		<div class="row">
+        	<div class="span12">
+        		<h1>Msg Code Library</h1>
+        		<p>
+        			The Msg Code Library function that removes all the alert messages. <br />
+        			This will be the place where you can define all your positive (example: Good Job!)
+        			and negative (example: Error) messages.
+        		</p>
+        		<p>
+        			In the example below, you will notice that all negative message are represented with a 
+        			negative number "key".  All positive messages are represented with a positive number
+        			"key".  This is to help developers quickly assess whether the message or a good or
+        			bad message.  Zero should be left out or used as a "test" message.
+        		</p>
+        		
+<pre class="prettyprint" id="html_lang">
+//this is what the library function looks like.
+function _bootstrap_alert_msg_library()
+{
+	//return array of objects
+	return [
+		{
+			key: 0, //key is stored as a numeric message
+			display_msg: "This is the message displayed to the users",
+			sys_msg: "This is the message that will be sent up to the logging service"
+		},
+		{
+			key: -1, 
+			display_msg: "A negative numeric number signify a error message",
+			sys_msg: "All negative numbers are error messages. This allows the developer" +
+	       			"to quickly understand if a message is good or bad."
+		},
+		{
+			key: 1, 
+			display_msg: "A positive numeric number signify a warning or positive message",
+			sys_msg: "All positive numbers are for warning and positive messages. This allows " +
+	       			"the developer to quickly understand if a message is good or bad."
+		}
+	];
+}
+</pre>
+        		
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>How to add a message to the Library</h1>
+        		<p>
+        			In this example will want to add to the library above.
+        			Lets list out what this is built for.
+        		</p>
+        		
+        		<p>Business Requirement</p>
+        		<ul>
+        			<li>A error message telling the user you left a input blank</li>
+        			<li>Error message is specific to one input (User email address)</li>
+        			<li>Message display to user will be "Error please enter you email address"</li>
+        			<li>System message to be logged is "User did not enter email address newUser.html"</li>
+        			<li>Logs will be track for analysis</li>
+        		</ul>
+        		
+        		<p>From the business requirement we build the simple Technical Requirements</p>
+        		<ul>
+        			<li>Error is a negative message, so the key number is</li>
+        			<li>From the business requirements we know what the user message will be. "Error please enter you email address"</li>
+        			<li>
+						From the business requirements we know that they want a specific error message but they also want to track these errors.
+        				Know this you should tell the business unit that the system message should be formatted in such a way that is
+        				easy to parse and statistical analysis on it.        			
+        			</li>
+        		</ul>
+        		
+        		<h3>Add the message to the library</h3>
+        		
+<pre class="prettyprint" id="html_lang">
+//this is what the library function looks like.
+function _bootstrap_alert_msg_library()
+{
+	//return array of objects
+	return [
+		{
+			key: 0, //key is stored as a numeric message
+			display_msg: "This is the message displayed to the users",
+			sys_msg: "This is the message that will be sent up to the logging service"
+		},
+		{
+			key: -1, 
+			display_msg: "A negative numeric number signify a error message",
+			sys_msg: "All negative numbers are error messages. This allows the developer" +
+	       			"to quickly understand if a message is good or bad."
+		},
+		{
+			key: 1, 
+			display_msg: "A positive numeric number signify a warning or positive message",
+			sys_msg: "All positive numbers are for warning and positive messages. This allows " +
+	       			"the developer to quickly understand if a message is good or bad."
+		},
+		{
+			key: -2, //new error message
+			display_msg: "Error please enter you email address", //user message
+			sys_msg: "-2;newUser.html;User did not enter email address newUser.html" //sys msg, use ; to parse messages
+		}
+	];
+}
+</pre>
+        		
+        	</div>
+        </div>
+      	
+        <hr />
+		<footer>
+			<p>308tube.com &copy; 2012</p>
+		</footer>
+
+    </div> <!-- /container -->
+
+
+</body>
+</html>

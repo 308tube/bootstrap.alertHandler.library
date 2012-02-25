@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+	<meta charset="utf-8" />
+	<title>bootstrap.alertHandler.js</title>
+	
+	<!-- Library files 
+		http://twitter.github.com/bootstrap/
+		http://jquery.com/
+	-->
+	<link href="resources/css/bootstrap.css" rel="stylesheet">
+	<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="resources/css/prettify.css" rel="stylesheet">
+	<script src="resources/js/jquery-1.7.1.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/prettify.js"></script>
+	
+	<!-- Developer files -->
+	<link href="css/main.css" rel="stylesheet">
+	<script src="js/main.js"></script>
+	<script src="js/bootstrap.alertHandler.js"></script>
+	<!-- <script src="js/bootstrap.alertHandler.min.js"></script>  -->
+	
+</head>
+<body onload="prettyPrint()">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+	
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">Alert Handler Library</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+	
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="msgCodeLib.html">Msg Code Library</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+	
+    </div>
+
+    <div class="container">
+		<div class="hero-unit">
+			<h1>bootstrap.alertHandler.js</h1>
+        	<p>
+	        	This is a javascript library that will allow you to build "alert" messages <br />
+        	</p>
+        	
+        	<p>
+        		To run this library you will need:
+        	</p>
+        	<ul>
+        		<li><a href="http://twitter.github.com/bootstrap/">Bootstrap version 2.0 from Twitter</a></li>
+        		<li><a href="http://jquery.com/">jQuery Project</a></li>
+        		<li><a href="js/bootstrap.alertHandler.js">bootstrap.alertHandler.js</a> - version: 0.07.01 (2011-FEB-24)</li>
+        	</ul>
+      	</div>
+      	
+      	<div class="row">
+        	<div class="span12">
+        		<h1>Examples 1: basic</h1>
+        		<p>
+        			How to display a error message, must basic example.  Bootstrap
+        			default color is yellow. Examples of how to change colors is 
+        			demo later.<br />
+        			In the bootstrap.alertHandler.js is a Msg Code Library; you can
+        			add your own error codes into the library.  For more information
+        			on that, go the Msg Code Library page. (Top Navigation bar)
+        		</p>
+
+<pre class="prettyprint" id="html_lang">
+//HTML div tag with a ID of example1
+&lt;div id="example1"&gt;&lt;/div&gt;
+
+// must basic syntax
+// "example1" is the div id
+// "0" is the error message retrieved from the Msg Code Library
+_BSMsg("example1").errMsg(0).build();
+
+//to close the alert message, click the X on the right-hand side of the message.
+</pre>
+
+				<div id="example1"></div>
+				<p><a id="example1_btn" class="btn btn-primary">Example 1</a></p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Examples 2: something better</h1>
+        		<p>
+        			The method build(para) can accept the follow parameters.
+        			"slow" "fast" or a numeric number.
+        		</p>
+
+<pre class="prettyprint" id="html_lang">
+//HTML div tags with a ID
+&lt;div id="example2a"&gt;&lt;/div&gt;
+&lt;div id="example2b"&gt;&lt;/div&gt;
+
+//example2a
+// "slow" and "fast" is valid parameter
+_BSMsg("example2a").errMsg(-1).build("slow");
+
+//example2b
+//define your own time, numbers is a valid parameter, 3000 = 3 seconds
+_BSMsg("example2b").errMsg(1).build(3000);
+</pre>
+
+				<div id="example2a"></div>
+				<div id="example2b"></div>
+				<p>
+					<a id="example2a_btn" class="btn btn-primary">Example 2a</a>
+					<a id="example2b_btn" class="btn btn-primary">Example 2b</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Examples 3: ad hoc messages</h1>
+        		<p>
+        			You do not need to add your message to the Msg Code Library.
+        			You can add the message directly into the errMsg() method. <br />
+        			This is not recommend for "ERROR" messages.  They should be
+        			standardize and easy to find in the code and logged for
+        			analysis.
+        		</p>
+
+<pre class="prettyprint" id="html_lang">
+//HTML div tags with a ID
+&lt;div id="example3a"&gt;&lt;/div&gt;
+&lt;div id="example3b"&gt;&lt;/div&gt;
+
+//example3a
+//define your own message
+_BSMsg("example3a").errMsg({
+	display_msg: "This message will be displayed to the user",
+	sys_msg: "This is the geek message that will be logged"
+})
+.build("fast");
+
+//example3b
+_BSMsg("example3b").errMsg({
+		display_msg: "How now brown cow",
+		sys_msg: "var cow=brown, error cow is not brown"
+	})
+	.build(1000);
+</pre>
+
+				<div id="example3a"></div>
+				<div id="example3b"></div>
+				<p>
+					<a id="example3a_btn" class="btn btn-primary">Example 3a</a>
+					<a id="example3b_btn" class="btn btn-primary">Example 3b</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Examples 4: choose your color!</h1>
+        		<p>
+        			Choose from 4 colors that Bootstrap supports.
+        		</p>
+        		<ul>
+        			<li>blue, green, yellow or red</li>
+        			<li>
+        				The order you choose to call the method does not matter.
+        				As long as its before the build() method.
+        			</li>
+        		</ul>
+
+<pre class="prettyprint" id="html_lang">
+//HTML div tags with a ID
+&lt;div id="example4a"&gt;&lt;/div&gt;
+&lt;div id="example4b"&gt;&lt;/div&gt;
+&lt;div id="example4c"&gt;&lt;/div&gt;
+&lt;div id="example4d"&gt;&lt;/div&gt;
+
+//example4a
+_BSMsg("example4a").errMsg(0).setColor("blue").build("slow");
+
+//example4b
+_BSMsg("example4b").setColor("red").errMsg(-1).build("fast");
+
+//example4c
+_BSMsg("example4c").errMsg(1).setColor("green").build("slow");
+
+//example4d
+_BSMsg("example4d").errMsg({
+		display_msg: "How now brown cow",
+		sys_msg: "var cow=brown, error cow is not brown"
+	})
+	.setColor("yellow")
+	.build("fast");
+</pre>
+
+				<div id="example4a"></div>
+				<div id="example4b"></div>
+				<div id="example4c"></div>
+				<div id="example4d"></div>
+				<p>
+					<a id="example4a_btn" class="btn btn-primary">Example 4a</a>
+					<a id="example4b_btn" class="btn btn-primary">Example 4b</a>
+					<a id="example4c_btn" class="btn btn-primary">Example 4c</a>
+					<a id="example4d_btn" class="btn btn-primary">Example 4d</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Examples 5: set display time</h1>
+        		<p>
+        			Choose you can choose how long the message is displayed
+        		</p>
+        		<ul>
+        			<li>
+        				setDisplayTime(1000) method accept a number parameter. 
+        				1000 = 1 second
+        			</li>
+        			<li>
+        				setDisplayTime(0) a parameter of zero means the message 
+        				will stay on the screen until the users closes it.
+        			</li>
+        			<li>
+        				The order you choose to call the method does not matter.
+        				As long as its before the build() method.
+        			</li>
+        		</ul>
+
+<pre class="prettyprint" id="html_lang">
+//HTML div tags with a ID
+&lt;div id="example5a"&gt;&lt;/div&gt;
+&lt;div id="example5b"&gt;&lt;/div&gt;
+&lt;div id="example5c"&gt;&lt;/div&gt;
+&lt;div id="example5d"&gt;&lt;/div&gt;
+
+//example5a
+_BSMsg("example5a").setDisplayTime(0).errMsg(0).setColor("blue").build("fast");
+_BSMsg("example5b").setDisplayTime(3000).setColor("red").errMsg(-1).build("fast");
+_BSMsg("example5c").setDisplayTime(2000).errMsg(1).setColor("green").build("fast");
+_BSMsg("example5d").setDisplayTime(1000)
+	.errMsg({
+		display_msg: "How now brown cow",
+		sys_msg: "var cow=brown, error cow is not brown"
+	})
+	.setColor("yellow")
+	.build("fast");
+</pre>
+
+				<div id="example5a"></div>
+				<div id="example5b"></div>
+				<div id="example5c"></div>
+				<div id="example5d"></div>
+				<p>
+					<a id="example5a_btn" class="btn btn-primary">Example 5a</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Examples 6: chaining multiple messages</h1>
+        		<p>
+        			Using the setElementID() method, you can chain to other message
+        			div tags.
+        		</p>
+        		<ul>
+        			<li>
+        				setElementID(id) method accept a &lt;div id="id"&gt; ID.
+        				No # sign is needed.
+        			</li>
+        			<li>
+        				When using the setElementID() method, the order in relation to
+        				the build() method matters.
+        			</li>
+        		</ul>
+
+<pre class="prettyprint" id="html_lang">
+//HTML div tags with a ID
+&lt;div id="example6a"&gt;&lt;/div&gt;
+&lt;div id="example6b"&gt;&lt;/div&gt;
+&lt;div id="example6c"&gt;&lt;/div&gt;
+&lt;div id="example6d"&gt;&lt;/div&gt;
+
+//example6a
+//instead of calling 4 separate _BSMsg functions, we used one to create 4 messages.
+_BSMsg("example6a").setDisplayTime(4000).errMsg(0).setColor("blue").build("fast")
+	.setElementID("example6b").setDisplayTime(3000).setColor("red").errMsg(-1).build("fast")
+	.setElementID("example6c").setDisplayTime(2000).errMsg(1).setColor("green").build("fast")
+	.setElementID("example6d").setDisplayTime(1000)
+		.errMsg({
+				display_msg: "How now brown cow",
+				sys_msg: "var cow=brown, error cow is not brown"
+		})
+		.setColor("yellow")
+		.build("fast");
+</pre>
+
+				<div id="example6a"></div>
+				<div id="example6b"></div>
+				<div id="example6c"></div>
+				<div id="example6d"></div>
+				<p>
+					<a id="example6a_btn" class="btn btn-primary">Example 6a</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Advance 7: link BSMsg to a variable</h1>
+        		<p>
+        			Note: this should only be done if you are going to build many
+        			messages in a short period of time.  In this example will we
+        			hold the _BSMsg in memory by linking it with a variable. <br /> 
+        			So using a variable as a "pointer" to our object.
+        		</p>
+        		<p>
+        			In the example below, pretend your code is checking through the status
+        			of 12 positions and you need to report back what the status is.
+        		</p>
+
+<pre class="prettyprint" id="html_lang">
+//code here to check on pos1 status
+var status_check = _BSMsg("pos1").setDisplayTime(5000).errMsg(2).setColor("green").build("fast");
+
+//code here to check on pos2 status
+status_check.setElementID("pos2").build("fast");
+
+//code here to check on pos3 status
+status_check.setElementID("pos3").errMsg(3).setDisplayTime(0).setColor("yellow").build("fast");
+
+//more code, error found
+status_check.setElementID("pos4").errMsg(-2).setColor("red").build("fast");
+
+//more code, system ready
+status_check.setElementID("pos5").setDisplayTime(5000).errMsg(2).setColor("green").build("fast");
+
+//more code, system ready
+status_check.setElementID("pos6").build("fast"); //reuses values
+
+//more code, system ready
+status_check.setElementID("pos7").build("fast"); //reuses values
+
+//more code, system ready
+status_check.setElementID("pos8").build("fast"); //reuses values
+
+//more code, found error
+status_check.setElementID("pos9").errMsg(-2).setColor("red").setDisplayTime(0).build("fast");
+
+//more code, system not ready
+status_check.setElementID("pos10").errMsg(3).setColor("yellow").build("fast");
+
+//more code, found error
+status_check.setElementID("pos11").errMsg(-2).setColor("red").build("fast");
+
+//more code, system ready
+status_check.setElementID("pos12").errMsg(2).setColor("green").setDisplayTime(5000).build("fast");
+</pre>
+
+				<table id="example7_table" class="table table-bordered">
+				  <thead>
+				    <tr>
+				      <th width="20%">STATUS-LEFT</th>
+				      <th width="20%">POS-LEFT</th>
+				      <th width="20%" class="well">&nbsp;</th>
+				      <th width="20%">POS-RIGHT</th>
+				      <th width="20%">STATUS-RIGHT</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td><div id="pos1"></div></td>
+				      <td><br />POS-1<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-2<br /><br /></td>
+				      <td><div id="pos2"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos3"></div></td>
+				      <td><br />POS-3<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-4<br /><br /></td>
+				      <td><div id="pos4"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos5"></div></td>
+				      <td><br />POS-5<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-6<br /><br /></td>
+				      <td><div id="pos6"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos7"></div></td>
+				      <td><br />POS-7<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-8<br /><br /></td>
+				      <td><div id="pos8"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos9"></div></td>
+				      <td><br />POS-9<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-10<br /><br /></td>
+				      <td><div id="pos10"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos11"></div></td>
+				      <td><br />POS-11<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-12<br /><br /></td>
+				      <td><div id="pos12"></div></td>
+				    </tr>
+				  </tbody>
+				</table>
+				
+				<p>
+					<a id="example7a_btn" class="btn btn-primary">Example 7a</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+        <div class="row">
+        	<div class="span12">
+        		<h1>Advance 8: another example of variable linking</h1>
+        		<p>
+        			Note: this should only be done if you are going to build many
+        			messages in a short period of time.  In this example will we
+        			hold the _BSMsg in memory by linking it with a variable. <br /> 
+        			So using a variable as a "pointer" to our object.
+        		</p>
+        		<p>
+        			In the example below, pretend your code is checking through the status
+        			of 12 positions and you need to report back what the status is.
+        		</p>
+
+<pre class="prettyprint" id="html_lang">
+//build GREEN status and hold in memory by tieing it to a variable
+var green_status = _BSMsg("pos1b").setDisplayTime(5000).errMsg(2).setColor("green").build("fast");
+
+green_status.setElementID("pos2b").build("fast");
+
+//build YELLOW status and hold in memory by tieing it to a variable
+var yellow_status = _BSMsg("pos3b").errMsg(3).setDisplayTime(0).setColor("yellow").build("fast");
+
+//build RED status and hold in memory by tieing it to a variable
+var red_status = _BSMsg("pos4b").errMsg(-2).setColor("red").build("fast");
+
+green_status.setElementID("pos5b").build("fast");
+green_status.setElementID("pos6b").build("fast");
+green_status.setElementID("pos7b").build("fast");
+green_status.setElementID("pos8b").build("fast");
+
+red_status.setElementID("pos9b").build("fast");
+
+yellow_status.setElementID("pos10b").build("fast");
+
+red_status.setElementID("pos11b").build("fast");
+
+green_status.setElementID("pos12b").build("fast");
+</pre>
+
+				<table id="example8_table" class="table table-bordered">
+				  <thead>
+				    <tr>
+				      <th width="20%">STATUS-LEFT</th>
+				      <th width="20%">POS-LEFT</th>
+				      <th width="20%" class="well">&nbsp;</th>
+				      <th width="20%">POS-RIGHT</th>
+				      <th width="20%">STATUS-RIGHT</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td><div id="pos1b"></div></td>
+				      <td><br />POS-1b<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-2b<br /><br /></td>
+				      <td><div id="pos2b"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos3b"></div></td>
+				      <td><br />POS-3b<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-4b<br /><br /></td>
+				      <td><div id="pos4b"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos5b"></div></td>
+				      <td><br />POS-5b<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-6b<br /><br /></td>
+				      <td><div id="pos6b"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos7b"></div></td>
+				      <td><br />POS-7b<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-8b<br /><br /></td>
+				      <td><div id="pos8b"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos9b"></div></td>
+				      <td><br />POS-9b<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-10b<br /><br /></td>
+				      <td><div id="pos10b"></div></td>
+				    </tr>
+				    <tr>
+				      <td><div id="pos11b"></div></td>
+				      <td><br />POS-11b<br /><br /></td>
+				      <th class="well">&nbsp;</th>
+				      <td><br />POS-12b<br /><br /></td>
+				      <td><div id="pos12b"></div></td>
+				    </tr>
+				  </tbody>
+				</table>
+				
+				<p>
+					<a id="example8a_btn" class="btn btn-primary">Example 8a</a>
+				</p>
+        	</div>
+        </div>
+        
+        <hr />
+        
+		<footer>
+			<p>308tube.com &copy; 2012</p>
+		</footer>
+
+    </div> <!-- /container -->
+
+
+</body>
+</html>
