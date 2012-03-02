@@ -4,7 +4,7 @@
     <wls:context-root>bootstrap.alertHandler.library</wls:context-root>
     <wls:jsp-descriptor>
         <wls:keepgenerated>true</wls:keepgenerated>
-        <wls:working-dir>C:\Oracle\eclipse\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wai_domain\work\bootstrap.alertHandler.library</wls:working-dir>
+        <wls:working-dir>C:\Users\Sharon\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wai_domain\work\bootstrap.alertHandler.library</wls:working-dir>
         <wls:debug>true</wls:debug>
     </wls:jsp-descriptor>
 </wls:weblogic-web-app>

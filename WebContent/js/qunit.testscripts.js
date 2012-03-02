@@ -408,7 +408,7 @@ $(document).ready(function(){
 	/* Module E - Testing setColor method
 	 * ***********************************************************************/
 	module("Module E - setColor"); //name of the section
-	test("Successful use of setColor method", function() 
+	test("Successful use of setColor method (green)", function() 
 	{
 		expect(2);
 		
@@ -422,7 +422,49 @@ $(document).ready(function(){
 		
 	});
 	
-	test("Validate that errMsg method will not run if a method before this method errored out", function() 
+	test("Successful use of setColor method (blue)", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").getErrorCode(1).setColor("blue");
+		var internalErr = hold_msg.internalErr;
+		var msgColor = hold_msg.msgColor;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(msgColor, "blue", 'msgColor should be: blue, msgColor is set to: '+ msgColor);
+		
+	});
+	
+	test("Successful use of setColor method (red)", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").getErrorCode(1).setColor("red");
+		var internalErr = hold_msg.internalErr;
+		var msgColor = hold_msg.msgColor;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(msgColor, "red", 'msgColor should be: red, msgColor is set to: '+ msgColor);
+		
+	});
+	
+	test("Successful use of setColor method (yellow)", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").getErrorCode(1);
+		var internalErr = hold_msg.internalErr;
+		var msgColor = hold_msg.msgColor;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(msgColor, "yellow", 'msgColor should be: yellow, msgColor is set to: '+ msgColor);
+		
+	});
+	
+	test("Validate that setColor method will not run if a method before this method errored out", function() 
 	{
 		expect(2);
 		
@@ -442,7 +484,50 @@ $(document).ready(function(){
 		
 	});
 	
+	test("Validate error when passing in a invalid parameter (object)", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").setColor({});
+		var errName = hold_msg.errName;
+		var errMessage = hold_msg.errMessage;
+		
+		/*
+		 * Test 1: Check error name
+		 */
+		equal(errName, "not_a_valid_color.1", 'errName should be: not_a_valid_color.1, errName is set to: '+ errName);
+		
+		/*
+		 * Test 2: Check error message
+		 */
+		equal(errMessage, "There must be a string parameter. Values can be red or blue or yellow or green (case sensitive)", 'errMessage should be: There must be a string parameter. Values can be red or blue or yellow or green (case sensitive), errMessage is set to: '+ errMessage);
+		
+	});
 	
+	test("Validate error when passing in a invalid parameter (black)", function() 
+	{
+		expect(3);
+		
+		var hold_msg = _BSMsg("testDiv").setColor("black");
+		var errName = hold_msg.errName;
+		var errMessage = hold_msg.errMessage;
+		var msgColor = hold_msg.msgColor;
+		
+		/*
+		 * Test 1: Check error name
+		 */
+		equal(errName, "not_a_valid_color.2", 'errName should be: not_a_valid_color.2, errName is set to: '+ errName);
+		
+		/*
+		 * Test 2: Check error message
+		 */
+		equal(errMessage, "There must be a string parameter. Values can be red or blue or yellow or green (case sensitive)", 'errMessage should be: There must be a string parameter. Values can be red or blue or yellow or green (case sensitive), errMessage is set to: '+ errMessage);
+		
+		/*
+		 * Test 3: msgColor should be black
+		 */
+		equal(msgColor, "yellow", 'msgColor should be: yellow because black is not a valid color, msgColor is set to: '+ msgColor);
+	});
 	
 });
 
