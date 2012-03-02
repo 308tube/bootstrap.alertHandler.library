@@ -529,5 +529,62 @@ $(document).ready(function(){
 		equal(msgColor, "yellow", 'msgColor should be: yellow because black is not a valid color, msgColor is set to: '+ msgColor);
 	});
 	
+	/* Module E - Testing setDisplayTime method
+	 * ***********************************************************************/
+	module("Module F - setDisplayTime"); //name of the section
+	test("Successful use of setDisplayTime method (3000)", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").getErrorCode(1).setColor("green").setDisplayTime(3000);
+		var internalErr = hold_msg.internalErr;
+		var DisplayTimeValue = hold_msg.DisplayTimeValue;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(DisplayTimeValue, 3000, 'DisplayTimeValue should be: 3000, DisplayTimeValue is set to: '+ DisplayTimeValue);
+		
+	});
+	
+	test("Validate that setDisplayTime method will not run if a method before this method errored out", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").setColor("black").setDisplayTime(3000);
+		var errName = hold_msg.errName;
+		var errMessage = hold_msg.errMessage;
+		
+		/*
+		 * Test 1: Check error name
+		 */
+		equal(errName, "setDisplayTime.internalError", 'errName should be: setDisplayTime.internalError, errName is set to: '+ errName);
+		
+		/*
+		 * Test 2: Check error message
+		 */
+		equal(errMessage, "internalError, setDisplayTime function did not execute", 'errMessage should be: internalError, setDisplayTime function did not execute, errMessage is set to: '+ errMessage);
+		
+	});
+	
+	test("Validate error when passing in a invalid parameter (string)", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").setColor("blue").setDisplayTime("3000");
+		var errName = hold_msg.errName;
+		var errMessage = hold_msg.errMessage;
+		
+		/*
+		 * Test 1: Check error name
+		 */
+		equal(errName, "not_a_number", 'errName should be: not_a_number, errName is set to: '+ errName);
+		
+		/*
+		 * Test 2: Check error message
+		 */
+		equal(errMessage, "Parameter must be a number", 'errMessage should be: Parameter must be a number, errMessage is set to: '+ errMessage);
+		
+	});
+	
 });
 
