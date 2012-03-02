@@ -1,6 +1,6 @@
 /*
  * Alert Library for Bootstrap
- * version: 0.07.01 (2011-FEB-24)
+ * version: 0.07.10 (2011-FEB-26)
  * http://www.308tube.com/bootstrap/
  * 308tube@gmail.com
  * 
@@ -84,11 +84,11 @@ function _BSMsg(elementID)
 			return new _BSMsg(elementID);
 		}
 		
+		this.internalErr = false; //parameter used to check if a error has happened
 		this.setElementID(elementID); //valid ID and <div> tag
 		
 		this.msgBlockStyle = false; //Bootstrap style alert-block set to false, not used
 		this.msgColor = "yellow"; //default color if one is not specified
-		this.internalErr = false; //parameter used to check if a error has happened
 		return this;
 	}
 	catch(err)
@@ -108,26 +108,43 @@ _BSMsg.prototype = {
 	 */
 	setElementID: function(elementID) {
 		try
-		{			
+		{
+			var err;
+			
+			if (this.internalErr == true) {
+				err = new Error();
+				err.name = "setElementID.internalError";
+				err.message = "internalError, setElementID function did not execute";
+				throw err;
+			}
+			
+			var $elementID = $("#"+elementID);
+			
 			/*
 			 * Validates that the elementID is a id attribute
 			 * Currently no other jquery selector will be supported.
 			 */
-			if ( $("#"+elementID).length ) {
+			if ( $elementID.length ) {
 				
-				this.$elementID = $("#"+elementID); //jQuery selector
+				this.elementID = elementID;
 				
 				/*
 				 * Per Bootstrap standards 
 				 * http://twitter.github.com/bootstrap/components.html#alerts
 				 * Alerts must be defined in a <div> tag.
 				 */
-				if ( this.$elementID.is("div") == false ) {
-					throw "element_not_a_div";
+				if ( $elementID.is("div") == false ) {
+					err = new Error();
+					err.name = "element_not_a_div";
+					err.message = "Per Bootstrap standards, Alerts must be defined in a div tag";
+					throw err;
 				}
 			}
 			else {
-				throw "not_a_ID";
+				err = new Error();
+				err.name = "not_a_ID";
+				err.message = "The parameter is not a valid element ID attribute";
+				throw err;
 			}
 			
 			return this;
@@ -152,19 +169,31 @@ _BSMsg.prototype = {
 	errMsg: function(val) {
 		try
 		{
+			var err; 
+			
 			if (this.internalErr == true) {
-				throw "errMsg.internalError";
+				err = new Error();
+				err.name = "errMsg.internalError.1";
+				err.message = "internalError, errMsg function did not execute";
+				throw err;
 			}
 			
 			if (typeof val === 'number') {
 				this.getErrorCode(val);
 				
+				//since there was a method call above, we need to check for error
 				if (this.internalErr == true) {
-					throw "errMsg.internalError";
+					err = new Error();
+					err.name = "errMsg.internalError.2";
+					err.message = "internalError, errMsg function did not execute";
+					throw err;
 				}
 				
 				if (typeof this.libraryAlertCode === 'undefined'){
-					throw "no_value_found";
+					err = new Error();
+					err.name = "no_value_found";
+					err.message = "Error Code not found in system library";
+					throw err;
 				}
 			}
 			else {
@@ -190,11 +219,17 @@ _BSMsg.prototype = {
 					}
 					
 					if (val1 == false && val2 == false){
-						throw "incorrect_libraryErrCode";
+						err = new Error();
+						err.name = "incorrect_libraryErrCode";
+						err.message = "Error reading your custom errMsg parameter";
+						throw err;
 					}
 				}
 				else {
-					throw "val_not_recongized";
+					err = new Error();
+					err.name = "val_not_recongized";
+					err.message = "The parameter is not a number or object";
+					throw err;
 				}
 			}
 			
@@ -216,13 +251,32 @@ _BSMsg.prototype = {
 	getErrorCode: function(errorNumber) {
 		try
 		{
-			var alert_msg_library = _bootstrap_alert_msg_library();
-			var counter = alert_msg_library.length - 1;			
+			var err; 
 			
-			for (var i = 0; i <= counter; i++){
-				if (alert_msg_library[i].key == errorNumber){
-					this.libraryAlertCode = alert_msg_library[i];
+			if (this.internalErr == true) {
+				err = new Error();
+				err.name = "getErrorCode.internalError";
+				err.message = "internalError, getErrorCode function did not execute";
+				throw err;
+			}
+			
+			if (typeof errorNumber === 'number') {
+				
+				var alert_msg_library = _bootstrap_alert_msg_library();
+				var counter = alert_msg_library.length - 1;			
+				
+				for (var i = 0; i <= counter; i++){
+					if (alert_msg_library[i].key == errorNumber){
+						this.libraryAlertCode = alert_msg_library[i];
+					}
 				}
+			}
+			else {
+				
+				err = new Error();
+				err.name = "not_a_error_number";
+				err.message = "Parameter must be a number";
+				throw err;
 			}
 			
 			return this;
@@ -244,12 +298,20 @@ _BSMsg.prototype = {
 	setColor: function(color) {
 		try
 		{
+			var err;
+			
 			if (this.internalErr == true) {
-				throw "setColor.internalError";
+				err = new Error();
+				err.name = "setColor.internalError";
+				err.message = "internalError, setColor function did not execute";
+				throw err;
 			}
 			
 			if (typeof color !== 'string') {
-				throw "not_a_valid_color";
+				err = new Error();
+				err.name = "not_a_valid_color.1";
+				err.message = "There must be a string parameter. Values can be red or blue or yellow or green (case sensitive)";
+				throw err;
 			}
 			else {
 				
@@ -265,7 +327,10 @@ _BSMsg.prototype = {
 				}
 				else 
 				{
-					throw "not_a_valid_color";
+					err = new Error();
+					err.name = "not_a_valid_color.2";
+					err.message = "There must be a string parameter. Values can be red or blue or yellow or green (case sensitive)";
+					throw err;
 				}
 			}
 			
@@ -288,15 +353,23 @@ _BSMsg.prototype = {
 	setDisplayTime: function(delayTime) {
 		try
 		{
+			var err;
+			
 			if (this.internalErr == true) {
-				throw "setDisplayTime.internalError";
+				err = new Error();
+				err.name = "setDisplayTime.internalError";
+				err.message = "internalError, setDisplayTime function did not execute";
+				throw err;
 			}
 			
 			if (typeof delayTime === 'number') {
 				this.DisplayTimeValue = delayTime;
 			}
 			else {
-				throw "not_a_number";
+				err = new Error();
+				err.name = "not_a_number";
+				err.message = "Parameter must be a number";
+				throw err;
 			}
 			
 			return this;
@@ -325,8 +398,13 @@ _BSMsg.prototype = {
 	build: function(time) {
 		try
 		{
+			var err;
+			
 			if (this.internalErr == true) {
-				throw "build.internalError";
+				err = new Error();
+				err.name = "build.internalError";
+				err.message = "internalError, build function did not execute";
+				throw err;
 			}
 			
 			var val1 = false;
@@ -347,13 +425,16 @@ _BSMsg.prototype = {
 					sys_msg_str = this.libraryAlertCode.sys_msg;
 				}
 				if (val1 == false && val2 == false){
-					throw "can_not_read_errMsg";
+					err = new Error();
+					err.name = "can_not_read_errMsg";
+					err.message = "Error reading errMsg parameter";
+					throw err;
 				}
 				if (val1 == false) {
 					display_msg_str = sys_msg_str;
 				}
 				
-				var $ID = this.$elementID;
+				var $ID = $("#"+this.elementID); //create jquery selector
 				var added_class = false;
 				var whatColor = this.msgColor;
 				var msg_string = null;
@@ -450,7 +531,10 @@ _BSMsg.prototype = {
 				});
 			}
 			else {
-				throw "libraryErrCode_not_defined";
+				err = new Error();
+				err.name = "libraryErrCode_not_defined";
+				err.message = "Error, no errMsg has been defined";
+				throw err;
 			}
 			
 			return this;
@@ -472,61 +556,20 @@ _BSMsg.prototype = {
 		try
 		{
 			this.internalErr = true;
+			this.errName = errCode.name; //used for QUnit testing
+			this.errMessage = errCode.message; //used for QUnit testing
+			
 			var hasConsole = null;
 			
 			if (typeof console === 'undefined') { hasConsole = false; }
 			else { hasConsole = true; }
 			
 			var build_error = function(msg, bConsole) {
-				if(bConsole == false) { alert(msg); }
-				else { console.error(msg); }
+				if(bConsole == false) { alert(msg.message); }
+				else { console.error(msg.name + ": " + msg.message); }
 			};
 			
-			switch(errCode)
-			{
-			case "not_a_ID":
-				build_error("The parameter is not a valid element ID attribute", hasConsole);
-				break;
-			case "element_not_a_div":
-				build_error("Per Bootstrap standards, Alerts must be defined in a div tag", hasConsole);
-				break;
-			case "errMsg.internalError":
-				build_error("internalError, errMsg function did not execute", hasConsole);
-				break;
-			case "setColor.internalError":
-				build_error("internalError, setColor function did not execute", hasConsole);
-				break;
-			case "setDisplayTime.internalError":
-				build_error("internalError, setDisplayTime function did not execute", hasConsole);
-				break;
-			case "build.internalError":
-				build_error("internalError, build function did not execute", hasConsole);
-				break;
-			case "val_not_recongized":
-				build_error("The parameter is not a number or object", hasConsole);
-				break;
-			case "no_value_found":
-				build_error("Error Code not found in system library", hasConsole);
-				break;
-			case "incorrect_libraryErrCode":
-				build_error("Error reading your custom errMsg parameter", hasConsole);
-				break;
-			case "libraryErrCode_not_defined":
-				build_error("Error, no errMsg has been defined", hasConsole);
-				break;
-			case "can_not_read_errMsg":
-				build_error("Error reading errMsg parameter", hasConsole);
-				break;
-			case "not_a_valid_color":
-				build_error("There must be a string parameter. Values can be red or blue or yellow or green (case sensitive)", hasConsole);
-				break;
-			case "not_a_number":
-				build_error("Parameter must be a number", hasConsole);
-				break;
-			default:
-				var default_error = errCode.name + " " + errCode.message;
-				build_error(default_error, hasConsole);
-			}
+			build_error(errCode, hasConsole);
 			
 			return this;
 		}
@@ -583,3 +626,51 @@ $ID.unbind('click'); //unbind all click events on div
 
 //$ID.attr("random_id", random_id);
  */
+
+/*
+switch(errCode.name)
+{
+case "not_a_ID":
+	build_error("The parameter is not a valid element ID attribute", hasConsole);
+	break;
+case "element_not_a_div":
+	build_error("Per Bootstrap standards, Alerts must be defined in a div tag", hasConsole);
+	break;
+case "errMsg.internalError":
+	build_error("internalError, errMsg function did not execute", hasConsole);
+	break;
+case "setColor.internalError":
+	build_error("internalError, setColor function did not execute", hasConsole);
+	break;
+case "setDisplayTime.internalError":
+	build_error("internalError, setDisplayTime function did not execute", hasConsole);
+	break;
+case "build.internalError":
+	build_error("internalError, build function did not execute", hasConsole);
+	break;
+case "val_not_recongized":
+	build_error("The parameter is not a number or object", hasConsole);
+	break;
+case "no_value_found":
+	build_error("Error Code not found in system library", hasConsole);
+	break;
+case "incorrect_libraryErrCode":
+	build_error("Error reading your custom errMsg parameter", hasConsole);
+	break;
+case "libraryErrCode_not_defined":
+	build_error("Error, no errMsg has been defined", hasConsole);
+	break;
+case "can_not_read_errMsg":
+	build_error("Error reading errMsg parameter", hasConsole);
+	break;
+case "not_a_valid_color":
+	build_error("There must be a string parameter. Values can be red or blue or yellow or green (case sensitive)", hasConsole);
+	break;
+case "not_a_number":
+	build_error("Parameter must be a number", hasConsole);
+	break;
+default:
+	var default_error = errCode.name + " " + errCode.message;
+	build_error(default_error, hasConsole);
+}
+*/

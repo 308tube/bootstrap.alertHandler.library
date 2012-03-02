@@ -1,0 +1,14 @@
+# Alert Library for Bootstrap
+version: 0.07.01 (2011-FEB-24)
+http://www.308tube.com/bootstrap/
+308tube@gmail.com
+
+## Requires:
+* Bootstrap 2.0
+* jQuery
+* bootstrap.alertHandler.js
+
+This document is licensed as free software under the terms of the
+MIT License: http://www.opensource.org/licenses/mit-license.php
+
+"NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK."

@@ -150,6 +150,5 @@ $(document).ready(function(){
 		green_status.setElementID("pos12b").build("fast"); //reuses green values
 	});
 	
-	
 });
 
