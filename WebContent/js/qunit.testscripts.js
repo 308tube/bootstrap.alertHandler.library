@@ -529,7 +529,7 @@ $(document).ready(function(){
 		equal(msgColor, "yellow", 'msgColor should be: yellow because black is not a valid color, msgColor is set to: '+ msgColor);
 	});
 	
-	/* Module E - Testing setDisplayTime method
+	/* Module F - Testing setDisplayTime method
 	 * ***********************************************************************/
 	module("Module F - setDisplayTime"); //name of the section
 	test("Successful use of setDisplayTime method (3000)", function() 
@@ -583,6 +583,102 @@ $(document).ready(function(){
 		 * Test 2: Check error message
 		 */
 		equal(errMessage, "Parameter must be a number", 'errMessage should be: Parameter must be a number, errMessage is set to: '+ errMessage);
+		
+	});
+	
+	/* Module G - Testing build method
+	 * ***********************************************************************/
+	module("Module G - build"); //name of the section
+	test("Successful use of build method, blue alert box, no parameter", function() 
+	{
+		expect(3);
+		
+		var hold_msg = _BSMsg("buildTest1").getErrorCode(0).setColor("blue").setDisplayTime(100).build();
+		var internalErr = hold_msg.internalErr;
+		var DisplayTimeValue = hold_msg.DisplayTimeValue;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(DisplayTimeValue, 100, 'DisplayTimeValue should be: 0, DisplayTimeValue is set to: '+ DisplayTimeValue);
+		equal($("#buildTest1").hasClass("alert-info"), true, 'div should have Class: alert-info');
+		
+	});
+	
+	test("Successful use of build method, green alert box, no parameter", function() 
+	{
+		expect(3);
+		
+		var hold_msg = _BSMsg("buildTest2").getErrorCode(1).setColor("green").setDisplayTime(200).build();
+		var internalErr = hold_msg.internalErr;
+		var DisplayTimeValue = hold_msg.DisplayTimeValue;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(DisplayTimeValue, 200, 'DisplayTimeValue should be: 0, DisplayTimeValue is set to: '+ DisplayTimeValue);
+		equal($("#buildTest2").hasClass("alert-success"), true, 'div should have Class: alert-success');
+		
+	});
+	
+	test("Successful use of build method, red alert box, no parameter", function() 
+	{
+		expect(3);
+		
+		var hold_msg = _BSMsg("buildTest3").getErrorCode(-1).setColor("red").setDisplayTime(300).build();
+		var internalErr = hold_msg.internalErr;
+		var DisplayTimeValue = hold_msg.DisplayTimeValue;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(DisplayTimeValue, 300, 'DisplayTimeValue should be: 0, DisplayTimeValue is set to: '+ DisplayTimeValue);
+		equal($("#buildTest3").hasClass("alert-error"), true, 'div should have Class: alert-error');
+		
+	});
+	
+	test("Successful use of build method with slow parameter", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("buildTest4").getErrorCode(0).setDisplayTime(1500).build("slow");
+		var internalErr = hold_msg.internalErr;
+		var DisplayTimeValue = hold_msg.DisplayTimeValue;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(DisplayTimeValue, 1500, 'DisplayTimeValue should be: 0, DisplayTimeValue is set to: '+ DisplayTimeValue);
+		
+	});
+
+	test("Successful use of build method with fast parameter", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("buildTest5").getErrorCode(0).setDisplayTime(1500).build("fast");
+		var internalErr = hold_msg.internalErr;
+		var DisplayTimeValue = hold_msg.DisplayTimeValue;
+				
+		equal(internalErr, false, 'internalErr should be: false, internalErr is set to: '+ internalErr);
+		
+		equal(DisplayTimeValue, 1500, 'DisplayTimeValue should be: 0, DisplayTimeValue is set to: '+ DisplayTimeValue);
+		
+	});
+	
+	test("Validate that build method will not run if a method before this method errored out", function() 
+	{
+		expect(2);
+		
+		var hold_msg = _BSMsg("testDiv").getErrorCode(0).setDisplayTime("100").build();
+		var errName = hold_msg.errName;
+		var errMessage = hold_msg.errMessage;
+		
+		/*
+		 * Test 1: Check error name
+		 */
+		equal(errName, "build.internalError", 'errName should be: build.internalError, errName is set to: '+ errName);
+		
+		/*
+		 * Test 2: Check error message
+		 */
+		equal(errMessage, "internalError, build function did not execute", 'errMessage should be: internalError, build function did not execute, errMessage is set to: '+ errMessage);
 		
 	});
 	
