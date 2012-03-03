@@ -1,6 +1,6 @@
 /*
  * Alert Library for Bootstrap
- * version: 0.07.10 (2011-FEB-26)
+ * version: 0.08.00 (2012-MAR-02)
  * http://www.308tube.com/bootstrap/
  * 308tube@gmail.com
  * 
